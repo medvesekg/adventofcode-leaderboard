@@ -1,0 +1,32 @@
+{
+  "name": "adventofcode-leaderboard",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "fetch": "node fetchData.js",
+    "onlyDeploy": "node deploy.js",
+    "deploy": "vite build && node deploy.js",
+    "pipeline": "yarn fetch && yarn deploy"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "autoprefixer": "9",
+    "axios": "^0.21.0",
+    "date-fns": "^2.16.1",
+    "glob": "^7.1.6",
+    "lodash": "^4.17.20",
+    "path": "^0.12.7",
+    "postcss": "7",
+    "shasum": "^1.0.2",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "vue": "^3.0.4",
+    "vue-router": "4",
+    "vuex": "^4.0.0",
+    "zalgo-js": "^1.0.0"
+  },
+  "devDependencies": {
+    "@vue/compiler-sfc": "^3.0.4",
+    "vite": "1.0.0-rc.13"
+  }
+}
