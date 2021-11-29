@@ -17,6 +17,7 @@
     </h2>
 
     <app-achievement
+      v-if="fastest.length"
       class="mb-5"
       title="Fastest gun in the west"
       description="to solve the first challenge"
@@ -34,6 +35,7 @@
     />
 
     <app-achievement
+      v-if="fastest2.length"
       class="mb-5"
       title="Allstar"
       description="to earn both stars"
@@ -51,6 +53,7 @@
     />
 
     <app-achievement
+      v-if="earlyBird.length"
       class="mb-5"
       title="Early bird"
       description=" stars earned before 8 AM"
@@ -61,6 +64,7 @@
     />
 
     <app-achievement
+      v-if="lateBird.length"
       class="mb-5"
       title="Night owl"
       description=" stars earned after 22 PM"
@@ -71,6 +75,7 @@
     />
 
     <app-achievement
+      v-if="day.length"
       class="mb-5"
       title="Code monkey"
       description="stars earned in a single day"
