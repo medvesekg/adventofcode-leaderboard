@@ -1,6 +1,6 @@
 <template>
   <main :class="{ dark: darkMode }">
-    <div class="dark:bg-gray-900 dark:shadow-sm dark:text-white">
+    <div id="main-div" class="dark:bg-gray-900 dark:shadow-sm dark:text-white">
       <div class="flex justify-between px-2">
         <small
           v-if="lastUpdated"
@@ -103,4 +103,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+#main-div {
+  min-height: 100vh;
+}
+</style>
