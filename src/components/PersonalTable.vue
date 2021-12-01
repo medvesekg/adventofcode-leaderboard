@@ -29,7 +29,7 @@
       <star-meter :results="row.completion_day_level" />
       <i
         class="fa fa-gift ml-5"
-        v-if="row.stars > get(targetUser, 'stars', 0)"
+        v-if="row.stars >= get(targetUser, 'stars', 0)"
       ></i>
     </template>
     <template #column:stars="{ row }">
