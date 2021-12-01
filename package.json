@@ -7,7 +7,7 @@
     "fetch": "node fetchData.js",
     "onlyDeploy": "node deploy.js",
     "deploy": "vite build && node deploy.js",
-    "pipeline": "yarn fetch && yarn deploy"
+    "pipeline": "git pull && yarn fetch && yarn deploy"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
