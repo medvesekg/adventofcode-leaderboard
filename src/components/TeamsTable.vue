@@ -79,8 +79,8 @@ export default defineComponent({
   computed: {
     rows() {
       let groupedUsers = groupBy(this.$store.getters.users, "department_id");
-      let rows = Object.values(this.$store.state.departments).map(
-        (department) => {
+      let rows = Object.values(this.$store.state.departments)
+        .map((department) => {
           let stars = sumBy(groupedUsers[department.id], "stars");
           let members = groupedUsers[department.id] || [];
           return {
@@ -89,8 +89,8 @@ export default defineComponent({
             avg_stars: stars / members.length,
             members: members,
           };
-        }
-      );
+        })
+        .filter((department) => department.members.length);
       return orderBy(rows, ["avg_stars", "stars"], ["desc", "desc"]);
     },
   },
