@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const axios = require("axios");
 const fs = require("fs");
+const removeAccents = require("remove-accents");
 
 const YEAR = process.env.VITE_YEAR;
 const LEADERBOARD_ID = process.env.VITE_LEADERBOARD_ID;
@@ -58,12 +59,17 @@ function isSameName(name1, name2) {
     return null;
   }
 
-  return name1.toLowerCase() === name2.toLowerCase();
+  return (
+    removeAccents(name1.toLowerCase()) === removeAccents(name2.toLowerCase())
+  );
 }
 
 function matchAdventofcodeUserToDiscordMember(user, discordMembers) {
   for (let member of discordMembers) {
-    if (isSameName(member.nick, user.name)) {
+    if (
+      isSameName(member.nick, user.name) ||
+      isSameName(member.user.username, user.name)
+    ) {
       return member;
     }
   }
@@ -78,15 +84,18 @@ function findDepartmentId(userRoleIds, departments) {
   }
 }
 
-function getAdditionalUserData(adventofcodeUsers, discordMembers) {
+function getAdditionalUserData(adventofcodeUsers, discordMembers, departments) {
   let additionalUserData = {};
   for (let user of adventofcodeUsers) {
     let member = matchAdventofcodeUserToDiscordMember(user, discordMembers);
     if (member) {
+      let avatar = member.avatar || member.user.avatar;
       additionalUserData[user.id] = {
         userId: user.id,
-        avatar: member.avatar,
-        department_id: findDepartmentId(member.roles),
+        avatar: avatar
+          ? `https://cdn.discordapp.com/avatars/${member.user.id}/${avatar}.png`
+          : null,
+        department_id: findDepartmentId(member.roles, departments),
       };
     }
   }
@@ -108,7 +117,9 @@ async function fetchAdditionalUserData(leaderboardData, departments) {
   let adventofcodeUsers = Object.values(leaderboardData.members);
 
   if (DISCORD_BOT_TOKEN && DISCORD_GUILD_ID) {
-    let discordUsers = await discordApi(`guilds/${DISCORD_GUILD_ID}/members`);
+    let discordUsers = await discordApi(
+      `guilds/${DISCORD_GUILD_ID}/members?limit=1000`
+    );
     additionalUserData = getAdditionalUserData(
       adventofcodeUsers,
       discordUsers,
@@ -145,4 +156,11 @@ async function main() {
   console.log("All data fetched");
 }
 
+/*
+discordApi(`guilds/${DISCORD_GUILD_ID}/members`).then(
+  (response) => {
+    console.log(response);
+  }
+);
+*/
 main();
