@@ -3,15 +3,7 @@
     <teams-table />
 
     <h2
-      class="
-        text-center
-        my-20
-        text-3xl
-        font-semibold
-        text-gray-800
-        dark:text-gray-200
-        md:text-4xl
-      "
+      class="text-center my-20 text-3xl font-semibold text-gray-800 dark:text-gray-200 md:text-4xl"
     >
       Achievements
     </h2>
@@ -107,7 +99,7 @@ export default {
   data() {
     return {
       table: "PersonalTable",
-      year: import.meta.env.VITE_YEAR,
+      year: this.$store.state.year,
     };
   },
 

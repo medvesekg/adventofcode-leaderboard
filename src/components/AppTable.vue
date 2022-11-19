@@ -6,7 +6,9 @@
         <div
           class="shadow overflow-hidden border-b border-gray-200 dark:border-gray-900 sm:rounded-lg"
         >
-          <table class="divide-y divide-gray-200 min-w-full dark:divide-gray-900">
+          <table
+            class="divide-y divide-gray-200 min-w-full dark:divide-gray-900"
+          >
             <thead class="bg-gray-50 dark:bg-gray-700">
               <tr>
                 <th
@@ -22,8 +24,14 @@
                 </th>
               </tr>
             </thead>
-            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-900">
-              <tr v-for="(row, i) in actualRows" :style="rowStyle(row)" :key="i">
+            <tbody
+              class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-900"
+            >
+              <tr
+                v-for="(row, i) in actualRows"
+                :style="rowStyle(row)"
+                :key="i"
+              >
                 <td
                   v-for="(column, j) in actualColumns"
                   :key="j"
@@ -73,8 +81,8 @@ export default {
     rowStyle: {
       type: Function,
       required: false,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
 
   data() {
@@ -112,7 +120,7 @@ export default {
       let columns = this.actualColumns.filter((column) => {
         return this.currentOrderBy.column.includes(column.name);
       });
-      
+
       if (columns && columns.length) {
         rows = orderBy(
           rows,
@@ -127,8 +135,8 @@ export default {
 
   methods: {
     getValue(object, accessor) {
-      if(isFunction(accessor)) {
-        return accessor(object)
+      if (isFunction(accessor)) {
+        return accessor(object);
       }
       return get(object, accessor);
     },
@@ -138,9 +146,9 @@ export default {
       let oldColumn = this.currentOrderBy.column[0];
       let oldDirection = this.currentOrderBy.direction[0];
 
-      this.currentOrderBy.column = []
-      this.currentOrderBy.direction = []
-     
+      this.currentOrderBy.column = [];
+      this.currentOrderBy.direction = [];
+
       if (oldColumn === column.name) {
         this.currentOrderBy.column[0] = column.name;
         this.currentOrderBy.direction[0] =

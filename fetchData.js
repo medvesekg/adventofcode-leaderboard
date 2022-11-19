@@ -4,7 +4,7 @@ const axios = require("axios");
 const fs = require("fs");
 const removeAccents = require("remove-accents");
 
-const YEAR = process.env.VITE_YEAR;
+const YEAR = parseInt(process.argv[2] || new Date().getFullYear());
 const LEADERBOARD_ID = process.env.VITE_LEADERBOARD_ID;
 const SESSION_ID = process.env.SESSION_ID;
 
@@ -129,16 +129,37 @@ async function fetchAdditionalUserData(leaderboardData, departments) {
   return additionalUserData;
 }
 
+function exportPrefix() {
+  return "export default ";
+}
+
 function writeJson(path, contents) {
-  fs.writeFile(
-    path,
-    "export default " + JSON.stringify(contents),
-    function (e) {
-      if (e) {
-        console.log(e);
-      }
+  fs.writeFile(path, exportPrefix() + JSON.stringify(contents), function (e) {
+    if (e) {
+      console.log(e);
     }
-  );
+  });
+}
+
+function writeLeaderboardData(data) {
+  fs.readFile("src/data/data.js", "utf8", (err, existingData) => {
+    let dataToWrite = {};
+    if (err) {
+      dataToWrite[YEAR] = data;
+    } else {
+      try {
+        existingData = JSON.parse(
+          existingData.substring(exportPrefix().length)
+        );
+      } catch {
+        existingData = {};
+      }
+      existingData[YEAR] = data;
+      dataToWrite = existingData;
+    }
+
+    writeJson("src/data/data.js", dataToWrite);
+  });
 }
 
 async function main() {
@@ -149,7 +170,7 @@ async function main() {
     departments
   );
 
-  writeJson("src/data/data.js", leaderboardData);
+  writeLeaderboardData(leaderboardData);
   writeJson("src/data/departments.js", departments);
   writeJson("src/data/users.js", additionalUserData);
 

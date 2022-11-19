@@ -1,22 +1,15 @@
-const pathAliasMap = {
-  "@/": "/src/",
-};
+import path from "path";
+import vue from "@vitejs/plugin-vue";
 
 export default {
-  resolvers: [
-    {
-      alias(path) {
-        for (const [slug, res] of Object.entries(pathAliasMap)) {
-          if (path.startsWith(slug)) {
-            return path.replace(slug, res);
-          }
-        }
-      },
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "src"),
     },
-  ],
+  },
 
   optimizeDeps: {
     exclude: ["@fortawesome/fontawesome-free", "glob", "shasum"],
   },
-
 };

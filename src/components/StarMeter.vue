@@ -26,10 +26,10 @@ export default {
     },
   },
 
-  data() {
-    return {
-      year: import.meta.env.VITE_YEAR,
-    };
+  computed: {
+    year() {
+      return this.$store.state.year;
+    },
   },
 
   methods: {

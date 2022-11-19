@@ -1,5 +1,5 @@
 <template>
-  <app-table :columns="columns" :rows="rows">
+  <app-table :columns="columns" :rows="rows" :key="year">
     <template #column:name="{ value, row }">
       <span :style="rowStyle(row)">
         {{ value || "Segmentation fault (core dumped)" }}
@@ -111,6 +111,9 @@ export default defineComponent({
         ["stars", "local_score"],
         ["desc", "desc"]
       );
+    },
+    year() {
+      return this.$store.state.year;
     },
   },
 

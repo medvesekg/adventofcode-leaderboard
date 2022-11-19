@@ -7,22 +7,35 @@ import usersAdditionalData from "@/data/users";
 export default createStore({
   state() {
     return {
+      year:
+        new Date().getMonth() === 11
+          ? new Date().getFullYear()
+          : new Date().getFullYear() - 1,
       raw: data,
       departments,
     };
   },
 
   getters: {
+    availableYears(state) {
+      return Object.keys(state.raw).sort().reverse();
+    },
+
     maxDay(state, getters) {
+      return 25;
+      /*
       let max = maxBy(getters.results, (item) => parseInt(item.day));
       return max ? max.day : 0;
+      */
     },
 
     results(state) {
-      let year = import.meta.env.VITE_YEAR;
+      let year = state.year;
       let flat = [];
-      if (state.raw.members) {
-        for (let [userId, member] of Object.entries(state.raw.members)) {
+      if (state.raw[state.year].members) {
+        for (let [userId, member] of Object.entries(
+          state.raw[state.year].members
+        )) {
           for (let [day, results] of Object.entries(
             member.completion_day_level
           )) {
@@ -46,10 +59,10 @@ export default createStore({
 
     users(state) {
       let users = {};
-      for (let userId in state.raw.members) {
+      for (let userId in state.raw[state.year].members) {
         let user = {
           ...usersAdditionalData[userId],
-          ...state.raw.members[userId],
+          ...state.raw[state.year].members[userId],
         };
         if (!user.name) {
           user.department_id = 7;
@@ -61,8 +74,8 @@ export default createStore({
     },
   },
   mutations: {
-    setUsers(state, users) {
-      state.users = users;
+    setYear(state, year) {
+      state.year = year;
     },
   },
 });

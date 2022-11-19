@@ -10,7 +10,6 @@
 - Clone repo
 - Copy `.env.example` to `.env`
 - Fill in the `.env` variables:
-  - VITE_YEAR: current year,
   - VITE_LEADERBOARD_ID: get it from url `https://adventofcode.com/2021/leaderboard/private/view/{LEADERBOARD_ID}`
   - SESSION_ID: get this from your session cookie once you log in to adventofcode.com  
     ![](screenshot1.png)

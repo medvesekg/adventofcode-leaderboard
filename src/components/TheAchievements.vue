@@ -83,7 +83,7 @@ export default {
 
   data() {
     return {
-      year: import.meta.env.VITE_YEAR,
+      year: this.$store.state.year,
     };
   },
 

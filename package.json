@@ -11,22 +11,24 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
+    "@vitejs/plugin-vue": "^2.3.3",
     "autoprefixer": "9",
     "axios": "^0.21.0",
     "date-fns": "^2.16.1",
+    "dotenv": "^16.0.3",
     "lodash": "^4.17.20",
     "path": "^0.12.7",
     "postcss": "7",
     "remove-accents": "^0.4.2",
     "shasum": "^1.0.2",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
-    "vue": "^3.0.4",
+    "vue": "^3.2.0",
     "vue-router": "4",
     "vuex": "^4.0.0",
     "zalgo-js": "^1.0.0"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.0.4",
-    "vite": "1.0.0-rc.13"
+    "@vue/compiler-sfc": "^3.2.0",
+    "vite": "^2.0.0"
   }
 }

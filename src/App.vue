@@ -19,7 +19,7 @@ export default {
   },
 
   created() {
-    document.title = "Advent of code " + import.meta.env.VITE_YEAR;
+    document.title = "Advent of code " + this.$store.state.year;
   },
 
   computed: {

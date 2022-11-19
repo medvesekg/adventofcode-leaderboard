@@ -2,14 +2,29 @@
   <main :class="{ dark: darkMode }">
     <div id="main-div" class="dark:bg-gray-900 dark:shadow-sm dark:text-white">
       <div class="flex justify-between px-2">
-        <small
-          v-if="lastUpdated"
-          :title="format(lastUpdated, 'd. m. y H:M')"
-          class="dark:text-gray-400"
-        >
-          Leaderboard updated
-          {{ formatDistanceToNowStrict(lastUpdated, { addSuffix: true }) }}
-        </small>
+        <div>
+          <span class="dark:text-gray-400">Year: </span>
+          <select
+            v-model="year"
+            name=""
+            id=""
+            class="dark:text-gray-400 dark:bg-gray-900"
+          >
+            <option v-for="year in $store.getters.availableYears" :value="year">
+              {{ year }}
+            </option>
+          </select>
+
+          <small
+            v-if="lastUpdated"
+            :title="format(lastUpdated, 'd. m. y H:M')"
+            class="dark:text-gray-400"
+          >
+            updated
+            {{ formatDistanceToNowStrict(lastUpdated, { addSuffix: true }) }}
+          </small>
+        </div>
+
         <app-toggle v-model="darkMode">
           <span class="dark:text-gray-400">Dark mode</span>
         </app-toggle>
@@ -53,7 +68,6 @@ export default {
   data() {
     return {
       darkMode: false,
-      year: import.meta.env.VITE_YEAR,
       leaderboardId: import.meta.env.VITE_LEADERBOARD_ID,
       navigation: [
         {
@@ -83,9 +97,17 @@ export default {
   },
 
   computed: {
+    year: {
+      get() {
+        return this.$store.state.year;
+      },
+      set(year) {
+        return this.$store.commit("setYear", year);
+      },
+    },
     lastUpdated() {
-      return this.$store.state.raw.timestamp
-        ? new Date(this.$store.state.raw.timestamp)
+      return this.$store.state.raw[this.$store.state.year].timestamp
+        ? new Date(this.$store.state.raw[this.$store.state.year].timestamp)
         : null;
     },
   },
