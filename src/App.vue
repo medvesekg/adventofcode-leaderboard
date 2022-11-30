@@ -19,7 +19,7 @@ export default {
   },
 
   created() {
-    document.title = "Advent of code " + this.$store.state.year;
+    document.title = "Advent of code";
   },
 
   computed: {
