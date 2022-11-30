@@ -7,10 +7,9 @@ import usersAdditionalData from "@/data/users";
 export default createStore({
   state() {
     return {
-      year:
-        new Date().getMonth() === 11
-          ? new Date().getFullYear()
-          : new Date().getFullYear() - 1,
+      year: Object.keys(data)
+        .map((year) => parseInt(year))
+        .reduce((max, cur) => Math.max(max, cur), 0),
       raw: data,
       departments,
     };
