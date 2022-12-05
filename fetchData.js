@@ -76,12 +76,14 @@ function matchAdventofcodeUserToDiscordMember(user, discordMembers) {
 }
 
 function findDepartmentId(userRoleIds, departments) {
+  let departmentId = null;
   for (let roleId of userRoleIds) {
     let department = departments[roleId];
     if (department) {
-      return department.id;
+      departmentId = department.id;
     }
   }
+  return departmentId;
 }
 
 function getAdditionalUserData(adventofcodeUsers, discordMembers, departments) {
@@ -120,6 +122,7 @@ async function fetchAdditionalUserData(leaderboardData, departments) {
     let discordUsers = await discordApi(
       `guilds/${DISCORD_GUILD_ID}/members?limit=1000`
     );
+
     additionalUserData = getAdditionalUserData(
       adventofcodeUsers,
       discordUsers,
