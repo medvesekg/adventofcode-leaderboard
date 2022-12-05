@@ -67,7 +67,7 @@ export default createStore({
           user.department_id = 7;
         }
         if (!user.avatar && user.name) {
-          user.avatar = `https://github.com/${user.name}.png`;
+          user.avatar = `https://github.com/${user.name}.png?size=50`;
         }
         users[userId] = user;
       }
